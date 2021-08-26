@@ -21,11 +21,11 @@
 // SOFTWARE.
 
 public protocol MetadataInfo {
-    
     var kind: Kind { get }
     var size: Int { get }
     var alignment: Int { get }
     var stride: Int { get }
+    var valueWitnessTable: UnsafeMutablePointer<ValueWitnessTable> { get }
     
     init(type: Any.Type)
 }
