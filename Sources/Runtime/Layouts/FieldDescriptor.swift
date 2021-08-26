@@ -25,21 +25,21 @@ import CRuntime
 #endif
 
 /// https://github.com/apple/swift/blob/f2c42509628bed66bf5b8ee02fae778a2ba747a1/include/swift/Reflection/Records.h#L160
-struct FieldDescriptor {
+public struct FieldDescriptor {
     
-    var mangledTypeNameOffset: Int32
-    var superClassOffset: Int32
-    var _kind: UInt16
-    var fieldRecordSize: Int16
-    var numFields: Int32
-    var fields: Vector<FieldRecord>
+    public var mangledTypeNameOffset: Int32
+    public var superClassOffset: Int32
+    public var _kind: UInt16
+    public var fieldRecordSize: Int16
+    public var numFields: Int32
+    public var fields: Vector<FieldRecord>
     
-    var kind: FieldDescriptorKind {
+    public var kind: FieldDescriptorKind {
         return FieldDescriptorKind(rawValue: _kind)!
     }
 }
 
-struct FieldRecord {
+public struct FieldRecord {
     
     var fieldRecordFlags: Int32
     var _mangledTypeName: RelativePointer<Int32, Int8>
@@ -49,11 +49,11 @@ struct FieldRecord {
         return (fieldRecordFlags & 0x2) == 0x2
     }
     
-    mutating func fieldName() -> String {
+    public mutating func fieldName() -> String {
         return String(cString: _fieldName.advanced())
     }
 
-    mutating func type(genericContext: UnsafeRawPointer?,
+    public mutating func type(genericContext: UnsafeRawPointer?,
                        genericArguments: UnsafeRawPointer?) -> Any.Type {
         let typeName = _mangledTypeName.advanced()
         let metadataPtr = swift_getTypeByMangledNameInContext(
@@ -66,7 +66,7 @@ struct FieldRecord {
         return unsafeBitCast(metadataPtr, to: Any.Type.self)
     }
     
-    func getSymbolicMangledNameLength(_ base: UnsafeRawPointer) -> Int32 {
+    public func getSymbolicMangledNameLength(_ base: UnsafeRawPointer) -> Int32 {
         var end = base
         while let current = Optional(end.load(as: UInt8.self)), current != 0 {
             end += 1
@@ -81,7 +81,7 @@ struct FieldRecord {
     }
 }
 
-enum FieldDescriptorKind: UInt16 {
+public enum FieldDescriptorKind: UInt16 {
     case `struct`
     case `class`
     case `enum`

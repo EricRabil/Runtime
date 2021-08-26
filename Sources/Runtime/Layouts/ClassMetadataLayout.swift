@@ -25,17 +25,17 @@
 // related issue: https://github.com/wickwirew/Runtime/issues/92
 
 // Swift class or objc class
-struct AnyClassMetadataLayout {
-    var _kind: Int // isaPointer for classes
-    var superClass: Any.Type
+public struct AnyClassMetadataLayout {
+    public var _kind: Int // isaPointer for classes
+    public var superClass: Any.Type
 
     // see comment above
     #if !swift(>=5.4) || canImport(ObjectiveC)
-    var objCRuntimeReserve: (Int, Int)
-    var rodataPointer: Int
+    public var objCRuntimeReserve: (Int, Int)
+    public var rodataPointer: Int
     #endif
     
-    var isSwiftClass: Bool {
+    public var isSwiftClass: Bool {
         // see comment above
         #if !swift(>=5.4) || canImport(ObjectiveC)
         return (rodataPointer & classIsSwiftMask()) != 0
@@ -45,23 +45,23 @@ struct AnyClassMetadataLayout {
     }
 }
 
-struct ClassMetadataLayout: NominalMetadataLayoutType {
-    var _kind: Int // isaPointer for classes
-    var superClass: Any.Type
+public struct ClassMetadataLayout: NominalMetadataLayoutType {
+    public var _kind: Int // isaPointer for classes
+    public var superClass: Any.Type
 
     // see comment above
     #if !swift(>=5.4) || canImport(ObjectiveC)
-    var objCRuntimeReserve: (Int, Int)
-    var rodataPointer: Int
+    public var objCRuntimeReserve: (Int, Int)
+    public var rodataPointer: Int
     #endif
 
-    var classFlags: Int32
-    var instanceAddressPoint: UInt32
-    var instanceSize: UInt32
-    var instanceAlignmentMask: UInt16
-    var reserved: UInt16
-    var classSize: UInt32
-    var classAddressPoint: UInt32
-    var typeDescriptor: UnsafeMutablePointer<ClassTypeDescriptor>
-    var iVarDestroyer: UnsafeRawPointer
+    public var classFlags: Int32
+    public var instanceAddressPoint: UInt32
+    public var instanceSize: UInt32
+    public var instanceAlignmentMask: UInt16
+    public var reserved: UInt16
+    public var classSize: UInt32
+    public var classAddressPoint: UInt32
+    public var typeDescriptor: UnsafeMutablePointer<ClassTypeDescriptor>
+    public var iVarDestroyer: UnsafeRawPointer
 }

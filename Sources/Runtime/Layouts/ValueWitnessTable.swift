@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-struct ValueWitnessTable {
+public struct ValueWitnessTable {
     var initializeBufferWithCopyOfBuffer: UnsafeRawPointer
     var destroy: UnsafeRawPointer
     var initializeWithCopy: UnsafeRawPointer
@@ -34,7 +34,7 @@ struct ValueWitnessTable {
     var flags: Int
 }
 
-struct ValueWitnessFlags {
+public struct ValueWitnessFlags {
     static let alignmentMask = 0x0000FFFF
     static let isNonPOD = 0x00010000
     static let isNonInline = 0x00020000

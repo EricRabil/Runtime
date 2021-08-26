@@ -20,11 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-struct FunctionMetadata: MetadataType {
+public struct FunctionMetadata: MetadataType {
     
-    var pointer: UnsafeMutablePointer<FunctionMetadataLayout>
+    public var pointer: UnsafeMutablePointer<FunctionMetadataLayout>
     
-    func info() -> FunctionInfo {
+    public init(pointer: UnsafeMutablePointer<FunctionMetadataLayout>) {
+        self.pointer = pointer
+    }
+    
+    public func info() -> FunctionInfo {
         let (numberOfArguments, argumentTypes, returnType) = argumentInfo()
         return FunctionInfo(numberOfArguments: numberOfArguments,
                             argumentTypes: argumentTypes,

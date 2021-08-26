@@ -20,14 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-protocol NominalMetadataType: MetadataType where Layout: NominalMetadataLayoutType {
+public protocol NominalMetadataType: MetadataType where Layout: NominalMetadataLayoutType {
     
     /// The offset of the generic type vector in pointer sized words from the
     /// start of the metadata record.
     var genericArgumentOffset: Int { get }
 }
 
-extension NominalMetadataType {
+public extension NominalMetadataType {
     
     var genericArgumentOffset: Int {
         // default to 2. This would put it right after the type descriptor which is valid

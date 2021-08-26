@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-protocol MetadataInfo {
+public protocol MetadataInfo {
     
     var kind: Kind { get }
     var size: Int { get }
@@ -30,7 +30,7 @@ protocol MetadataInfo {
     init(type: Any.Type)
 }
 
-protocol MetadataType: MetadataInfo, TypeInfoConvertible {
+public protocol MetadataType: MetadataInfo, TypeInfoConvertible {
     
     associatedtype Layout: MetadataLayoutType
     
@@ -39,7 +39,7 @@ protocol MetadataType: MetadataInfo, TypeInfoConvertible {
     init(pointer: UnsafeMutablePointer<Layout>)
 }
 
-extension MetadataType {
+public extension MetadataType {
     
     init(type: Any.Type) {
         self = Self(pointer: unsafeBitCast(type, to: UnsafeMutablePointer<Layout>.self))
@@ -74,7 +74,9 @@ extension MetadataType {
             .assumingMemoryBound(to: UnsafeMutablePointer<ValueWitnessTable>.self)
             .pointee
     }
-    
+}
+
+public extension MetadataType {
     mutating func toTypeInfo() -> TypeInfo {
         return TypeInfo(metadata: self)
     }

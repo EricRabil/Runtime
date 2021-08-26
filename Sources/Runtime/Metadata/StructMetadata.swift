@@ -20,11 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-struct StructMetadata: NominalMetadataType {
+public struct StructMetadata: NominalMetadataType {
     
-    var pointer: UnsafeMutablePointer<StructMetadataLayout>
+    public var pointer: UnsafeMutablePointer<StructMetadataLayout>
     
-    mutating func toTypeInfo() -> TypeInfo {
+    public init(pointer: UnsafeMutablePointer<StructMetadataLayout>) {
+        self.pointer = pointer
+    }
+    
+    public mutating func toTypeInfo() -> TypeInfo {
         var info = TypeInfo(metadata: self)
         info.properties = properties()
         info.mangledName = mangledName()

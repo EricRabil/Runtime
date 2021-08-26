@@ -20,19 +20,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-struct EnumMetadata: NominalMetadataType {
+public struct EnumMetadata: NominalMetadataType {
     
-    var pointer: UnsafeMutablePointer<EnumMetadataLayout>
+    public var pointer: UnsafeMutablePointer<EnumMetadataLayout>
 
-    var numberOfPayloadCases: UInt32 {
+    public init(pointer: UnsafeMutablePointer<EnumMetadataLayout>) {
+        self.pointer = pointer
+    }
+    
+    public var numberOfPayloadCases: UInt32 {
         return pointer.pointee.typeDescriptor.pointee.numPayloadCasesAndPayloadSizeOffset & 0x00FFFFFF
     }
     
-    var numberOfCases: UInt32 {
+    public var numberOfCases: UInt32 {
         return pointer.pointee.typeDescriptor.pointee.numEmptyCases + numberOfPayloadCases
     }
     
-    mutating func cases() -> [Case] {
+    public mutating func cases() -> [Case] {
         guard pointer.pointee.typeDescriptor.pointee.fieldDescriptor.offset != 0 else {
             return []
         }
@@ -61,7 +65,7 @@ struct EnumMetadata: NominalMetadataType {
         }
     }
     
-    mutating func toTypeInfo() -> TypeInfo {
+    public mutating func toTypeInfo() -> TypeInfo {
         var info = TypeInfo(metadata: self)
         info.mangledName = mangledName()
         info.cases = cases()

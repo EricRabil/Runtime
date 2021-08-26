@@ -20,11 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-struct ProtocolMetadata: MetadataType {
+public struct ProtocolMetadata: MetadataType {
     
-    var pointer: UnsafeMutablePointer<ProtocolMetadataLayout>
+    public var pointer: UnsafeMutablePointer<ProtocolMetadataLayout>
     
-    mutating func mangledName() -> String {
+    public init(pointer: UnsafeMutablePointer<ProtocolMetadataLayout>) {
+        self.pointer = pointer
+    }
+    
+    public mutating func mangledName() -> String {
         return String(cString: pointer.pointee.protocolDescriptorVector.pointee.mangledName)
     }
 }
