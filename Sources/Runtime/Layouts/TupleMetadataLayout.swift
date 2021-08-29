@@ -28,6 +28,6 @@ public struct TupleMetadataLayout: MetadataLayoutType {
 }
 
 public struct TupleElementLayout {
-    var type: Any.Type
-    var offset: Int
+    public var type: Any.Type
+    public var offset: Int
 }
